@@ -53,7 +53,7 @@ public class GeoTiffReader implements dk.ek.vp.imageanalysis.interfaces.GeoTiffR
         // srid = Spatial Reference ID
         Integer srid = CRS.lookupEpsgCode(crs, true);
 
-        GridGeometry geometry = new GridGeometry(
+        GridGeometry geometry = new GridGeometryRecord(
                 originX,
                 originY,
                 pixelSizeX,
