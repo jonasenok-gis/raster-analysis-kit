@@ -1,6 +1,6 @@
 package dk.ek.vp.imageanalysis.interfaces;
 
-public interface Pipeline {
+public interface RasterPipeline {
     void add();
     void execute();
 }

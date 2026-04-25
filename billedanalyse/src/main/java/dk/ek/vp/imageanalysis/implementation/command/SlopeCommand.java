@@ -1,0 +1,11 @@
+package dk.ek.vp.imageanalysis.implementation.command;
+
+import dk.ek.vp.imageanalysis.interfaces.Raster;
+import dk.ek.vp.imageanalysis.interfaces.RasterCommand;
+
+public class SlopeCommand extends RasterCommand {
+    @Override
+    public Raster execute() {
+        return null;
+    }
+}
