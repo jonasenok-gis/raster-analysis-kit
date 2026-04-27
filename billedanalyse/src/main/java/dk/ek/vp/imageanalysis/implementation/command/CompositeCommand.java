@@ -5,7 +5,7 @@ import dk.ek.vp.imageanalysis.interfaces.RasterCommand;
 
 public class CompositeCommand implements RasterCommand {
     @Override
-    public Raster execute() {
+    public Raster execute(Raster input) {
         return null;
     }
 }

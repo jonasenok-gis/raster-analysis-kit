@@ -14,7 +14,12 @@ public class ArrayRaster implements Raster {
 
     @Override
     public double getValue(int x, int y) {
-        return rasterArray[x][y];
+        return rasterArray[y][x];
+    }
+
+    @Override
+    public GridGeometry getGeometry() {
+        return geometry;
     }
 
     @Override
@@ -24,6 +29,6 @@ public class ArrayRaster implements Raster {
 
     @Override
     public int height() {
-        return rasterArray[1].length;
+        return rasterArray.length;
     }
 }

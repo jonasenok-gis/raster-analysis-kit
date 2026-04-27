@@ -2,8 +2,7 @@ package dk.ek.vp.imageanalysis.implementation.raster;
 
 import dk.ek.vp.imageanalysis.interfaces.GridGeometry;
 import dk.ek.vp.imageanalysis.interfaces.Raster;
-import dk.ek.vp.imageanalysis.interfaces.RasterUtils;
-import org.geotools.api.data.DataSourceException;
+import dk.ek.vp.imageanalysis.interfaces.RasterReader;
 import org.geotools.api.referencing.FactoryException;
 import org.geotools.api.referencing.crs.CoordinateReferenceSystem;
 import org.geotools.coverage.grid.GridCoverage2D;
@@ -14,7 +13,7 @@ import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class GeoTiffReader implements dk.ek.vp.imageanalysis.interfaces.GeoTiffReader {
+public class GeoTiffReaderWithGeoTools implements RasterReader {
     @Override
     public Raster read(String path) throws IOException, FactoryException {
 
