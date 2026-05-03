@@ -1,7 +1,7 @@
 package dk.ek.vp.imageanalysis.demos;
 
 import dk.ek.vp.imageanalysis.implementation.command.FilterCommand;
-import dk.ek.vp.imageanalysis.implementation.command.RasterPipeline;
+import dk.ek.vp.imageanalysis.implementation.command.Pipeline;
 import dk.ek.vp.imageanalysis.implementation.raster.GeoTiffReaderWithGeoTools;
 import dk.ek.vp.imageanalysis.implementation.raster.GeoTiffWriterWithGeoTools;
 import dk.ek.vp.imageanalysis.interfaces.Raster;
@@ -21,9 +21,11 @@ public class SmallPipelineDemo {
         System.out.println("Input read from: " + inputPath);
         System.out.println("Image dimension: " + input.height() + " x "+input.width() );
         // filter command - example with any cellValue > 30 meters => 1, below => 0
-        RasterCommand filter = new FilterCommand(30.0 );
+        RasterCommand filter = new FilterCommand(30);
+        RasterCommand filter2 = new FilterCommand(30 );
+
         // create pipeline and add filter
-        RasterPipeline pipeline = RasterPipeline.empty().add(filter);
+        Pipeline pipeline = Pipeline.empty().add(filter).add(filter2);
 
         // execute pipeline
         Raster result = pipeline.execute(input);
