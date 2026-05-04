@@ -1,6 +1,6 @@
 package dk.ek.vp.imageanalysis.demos;
 
-import dk.ek.vp.imageanalysis.implementation.command.FilterCommand;
+import dk.ek.vp.imageanalysis.implementation.command.MapCommand;
 import dk.ek.vp.imageanalysis.implementation.raster.GeoTiffReaderWithGeoTools;
 import dk.ek.vp.imageanalysis.implementation.raster.GeoTiffWriterWithGeoTools;
 import dk.ek.vp.imageanalysis.interfaces.Raster;
@@ -20,7 +20,7 @@ public class WriterDemo {
             System.out.println("Loaded raster: " +
                     raster.width() + "x" + raster.height());
 
-            RasterCommand filter = new FilterCommand(30);
+            RasterCommand filter = new MapCommand(x -> 30);
 
             Raster result = filter.execute(raster);
 
