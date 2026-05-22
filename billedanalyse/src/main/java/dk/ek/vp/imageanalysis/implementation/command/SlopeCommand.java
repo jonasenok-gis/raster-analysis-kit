@@ -2,9 +2,9 @@ package dk.ek.vp.imageanalysis.implementation.command;
 
 import dk.ek.vp.imageanalysis.interfaces.Raster;
 
-public class SlopeCommand2 extends NeighborhoodCommand {
+public class SlopeCommand extends NeighborhoodCommand {
 
-    public SlopeCommand2() {
+    public SlopeCommand() {
         super(1); // 3x3 kernel
     }
 

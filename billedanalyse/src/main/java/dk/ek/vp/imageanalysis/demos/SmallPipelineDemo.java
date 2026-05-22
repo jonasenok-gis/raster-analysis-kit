@@ -1,11 +1,10 @@
 package dk.ek.vp.imageanalysis.demos;
 
-import dk.ek.vp.imageanalysis.implementation.command.MapCommand;
 import dk.ek.vp.imageanalysis.implementation.command.Pipeline;
+import dk.ek.vp.imageanalysis.implementation.command.SlopeCommand;
 import dk.ek.vp.imageanalysis.implementation.raster.GeoTiffReaderWithGeoTools;
 import dk.ek.vp.imageanalysis.implementation.raster.GeoTiffWriterWithGeoTools;
 import dk.ek.vp.imageanalysis.interfaces.Raster;
-import dk.ek.vp.imageanalysis.interfaces.RasterCommand;
 import dk.ek.vp.imageanalysis.interfaces.RasterWriter;
 
 public class SmallPipelineDemo {

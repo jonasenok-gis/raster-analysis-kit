@@ -26,9 +26,15 @@ public class VrtReader {
                     .newDocumentBuilder();
 
             Document doc = builder.parse(file);
+
+            Element root = doc.getDocumentElement();
+
+            int totalWidth = Integer.parseInt(root.getAttribute("rasterXSize"));
+            int totalHeight = Integer.parseInt(root.getAttribute("rasterYSize"));
+
+
             // each file in a .vrt is within a SimpleSource tag
             NodeList simpleSources = doc.getElementsByTagName("SimpleSource");
-
 
             for (int i = 0; i < simpleSources.getLength(); i++) {
                 Element simpleSource = (Element) simpleSources.item(i);
