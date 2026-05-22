@@ -43,3 +43,4 @@ build/
 .tif
 .vrt
 .tif.aux.xml
+.qgz
