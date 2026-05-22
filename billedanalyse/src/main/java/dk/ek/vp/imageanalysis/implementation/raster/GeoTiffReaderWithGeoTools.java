@@ -12,7 +12,19 @@ import org.geotools.referencing.CRS;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
-
+/**
+ * GeoTIFF raster reader implementation based on the GeoTools library.
+ *
+ * This reader converts GeoTIFF datasets into the internal Raster
+ * abstraction used by the raster processing framework.
+ *
+ * The implementation performs:
+ * - reading of raster cell values into a materialized array
+ * - extraction of spatial metadata
+ * - conversion of CRS information into an SRID
+ *
+ * The resulting raster is returned as an ArrayRaster.
+ */
 public class GeoTiffReaderWithGeoTools implements RasterReader {
     @Override
     public Raster read(String path) throws IOException, FactoryException {
@@ -24,7 +36,12 @@ public class GeoTiffReaderWithGeoTools implements RasterReader {
 
         GridCoverage2D coverage = reader.read(null);
 
-        // Retrieve pixel values into a 2D array
+        /*
+         * Retrieve raster pixel values from the GeoTIFF image
+         * and materialize them into a 2D array.
+         * Because a tif/other Raster GIS format can contain several bands (be an 3D array)
+         * a loop through the data is necessary.
+         */
         RenderedImage image = coverage.getRenderedImage();
         java.awt.image.Raster raster = image.getData();
 
@@ -39,8 +56,12 @@ public class GeoTiffReaderWithGeoTools implements RasterReader {
             }
         }
 
-        // retrieve the geographic information (pixel sizes, coordinates, spatial coordinate system)
-       ReferencedEnvelope env = coverage.getEnvelope2D();
+        /*
+         * Extract spatial metadata from the GeoTIFF coverage,
+         * including extent, pixel resolution, and coordinate
+         * reference system.
+         */
+        ReferencedEnvelope env = coverage.getEnvelope2D();
 
         double pixelSizeX = env.getWidth() / width;
         double pixelSizeY = env.getHeight() / height;
@@ -49,7 +70,9 @@ public class GeoTiffReaderWithGeoTools implements RasterReader {
         double originY = env.getMaxY();
 
         CoordinateReferenceSystem crs = coverage.getCoordinateReferenceSystem();
-        // srid = Spatial Reference ID
+        /*
+         * SRID = Spatial Reference System Identifier, ie. the file's coordinate system.
+         */
         Integer srid = CRS.lookupEpsgCode(crs, true);
 
         GridGeometry geometry = new GridGeometryRecord(
