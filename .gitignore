@@ -40,7 +40,7 @@ build/
 
 
 ### raster files ###
-.tif
-.vrt
-.tif.aux.xml
-.qgz
+*.tif
+*.vrt
+*.tif.aux.xml
+*.qgz
