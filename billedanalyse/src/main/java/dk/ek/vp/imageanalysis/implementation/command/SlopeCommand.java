@@ -1,38 +1,31 @@
 package dk.ek.vp.imageanalysis.implementation.command;
 
-import dk.ek.vp.imageanalysis.implementation.raster.AbstractLazyRaster;
 import dk.ek.vp.imageanalysis.interfaces.Raster;
-import dk.ek.vp.imageanalysis.interfaces.RasterCommand;
 
-public class SlopeCommand implements RasterCommand {
+public class SlopeCommand2 extends NeighborhoodCommand {
+
+    public SlopeCommand2() {
+        super(1); // 3x3 kernel
+    }
 
     @Override
-    public Raster execute(Raster input) {
-        double cellSizeX = input.getGeometry().pixelSizeX();
-        double cellSizeY = input.getGeometry().pixelSizeY();
-        return new AbstractLazyRaster(input) {
+    protected double apply(Raster source, double[][] w, int x, int y) {
 
-            @Override
-            public double getValue(int x, int y) {
+        double cellSizeX = source.getGeometry().pixelSizeX();
+        double cellSizeY = source.getGeometry().pixelSizeY();
 
-                if (x <= 0 || y <= 0 || x >= width() - 1 || y >= height() - 1) {
-                    return Double.NaN;
-                }
-                // using Horns algorithm to calculate weighted east-west and north-south slope
-                double z1 = source.getValue(x - 1, y - 1);
-                double z2 = source.getValue(x,     y - 1);
-                double z3 = source.getValue(x + 1, y - 1);
-                double z4 = source.getValue(x - 1, y);
-                double z6 = source.getValue(x + 1, y);
-                double z7 = source.getValue(x - 1, y + 1);
-                double z8 = source.getValue(x,     y + 1);
-                double z9 = source.getValue(x + 1, y + 1);
+        double z1 = w[0][0];
+        double z2 = w[0][1];
+        double z3 = w[0][2];
+        double z4 = w[1][0];
+        double z6 = w[1][2];
+        double z7 = w[2][0];
+        double z8 = w[2][1];
+        double z9 = w[2][2];
 
-                double dzdx = ((z3 + 2*z6 + z9) - (z1 + 2*z4 + z7)) / (8 * cellSizeX);
-                double dzdy = ((z7 + 2*z8 + z9) - (z1 + 2*z2 + z3)) / (8 * cellSizeY);
+        double dzdx = ((z3 + 2*z6 + z9) - (z1 + 2*z4 + z7)) / (8 * cellSizeX);
+        double dzdy = ((z7 + 2*z8 + z9) - (z1 + 2*z2 + z3)) / (8 * cellSizeY);
 
-                return Math.sqrt(dzdx * dzdx + dzdy * dzdy);
-            }
-        };
+        return Math.sqrt(dzdx * dzdx + dzdy * dzdy);
     }
 }
